@@ -5,6 +5,7 @@ import (
 	"github.com/huboleo/monkey-interpreter/ast"
 	"github.com/huboleo/monkey-interpreter/lexer"
 	"github.com/huboleo/monkey-interpreter/token"
+	"strconv"
 )
 
 type (
@@ -40,6 +41,7 @@ func New(l *lexer.Lexer) *Parser {
 
 	p.prefixParseFns = make(map[token.TokenType]prefixParseFn)
 	p.registerPrefix(token.IDENT, p.parseIdentifier)
+	p.registerPrefix(token.INT, p.parseIntegerLiteral)
 
 	// Initialize parser state(fills both currToken and peekToken)
 	p.nextToken()
@@ -142,6 +144,20 @@ func (p *Parser) parseExpression(precedence int) ast.Expression {
 	leftExp := prefix()
 
 	return leftExp
+}
+
+func (p *Parser) parseIntegerLiteral() ast.Expression {
+	lit := &ast.IntegerLiteral{Token: p.currToken}
+
+	value, err := strconv.ParseInt(p.currToken.Literal, 0, 64)
+	if err != nil {
+		msg := fmt.Sprintf("could not parse %q as integer", p.currToken.Literal)
+		p.errors = append(p.errors, msg)
+		return nil
+	}
+
+	lit.Value = value
+	return lit
 }
 
 func (p *Parser) currTokenIs(t token.TokenType) bool {
