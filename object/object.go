@@ -6,7 +6,7 @@ import (
 	"hash/fnv"
 	"strings"
 
-	"github.com/huboleo/monkey-interpreter/ast"
+	"github.com/huboleo/monkey-compiler/ast"
 )
 
 type ObjectType string

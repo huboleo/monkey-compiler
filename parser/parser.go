@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/huboleo/monkey-interpreter/ast"
-	"github.com/huboleo/monkey-interpreter/lexer"
-	"github.com/huboleo/monkey-interpreter/token"
+	"github.com/huboleo/monkey-compiler/ast"
+	"github.com/huboleo/monkey-compiler/lexer"
+	"github.com/huboleo/monkey-compiler/token"
 )
 
 type (

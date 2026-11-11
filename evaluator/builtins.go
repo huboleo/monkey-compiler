@@ -3,7 +3,7 @@ package evaluator
 import (
 	"fmt"
 
-	"github.com/huboleo/monkey-interpreter/object"
+	"github.com/huboleo/monkey-compiler/object"
 )
 
 var builtins = map[string]*object.Builtin{

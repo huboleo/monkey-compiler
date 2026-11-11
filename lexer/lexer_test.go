@@ -1,7 +1,7 @@
 package lexer
 
 import (
-	"github.com/huboleo/monkey-interpreter/token"
+	"github.com/huboleo/monkey-compiler/token"
 	"testing"
 )
 

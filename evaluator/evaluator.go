@@ -2,8 +2,8 @@ package evaluator
 
 import (
 	"fmt"
-	"github.com/huboleo/monkey-interpreter/ast"
-	"github.com/huboleo/monkey-interpreter/object"
+	"github.com/huboleo/monkey-compiler/ast"
+	"github.com/huboleo/monkey-compiler/object"
 )
 
 var (

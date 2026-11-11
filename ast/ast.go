@@ -2,7 +2,7 @@ package ast
 
 import (
 	"bytes"
-	"github.com/huboleo/monkey-interpreter/token"
+	"github.com/huboleo/monkey-compiler/token"
 	"strings"
 )
 

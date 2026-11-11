@@ -1,9 +1,9 @@
 package evaluator
 
 import (
-	"github.com/huboleo/monkey-interpreter/lexer"
-	"github.com/huboleo/monkey-interpreter/object"
-	"github.com/huboleo/monkey-interpreter/parser"
+	"github.com/huboleo/monkey-compiler/lexer"
+	"github.com/huboleo/monkey-compiler/object"
+	"github.com/huboleo/monkey-compiler/parser"
 	"testing"
 )
 
