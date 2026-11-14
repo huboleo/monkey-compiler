@@ -2,10 +2,11 @@ package compiler
 
 import (
 	"fmt"
+	"sort"
+
 	"github.com/huboleo/monkey-compiler/ast"
 	"github.com/huboleo/monkey-compiler/code"
 	"github.com/huboleo/monkey-compiler/object"
-	"sort"
 )
 
 type CompilationScope struct {
@@ -257,9 +258,10 @@ func (c *Compiler) Compile(node ast.Node) error {
 			c.emit(code.OpReturn)
 		}
 
+		numLocals := c.symbolTable.numDefinitions
 		instructions := c.leaveScope()
 
-		compiledFn := &object.CompiledFunction{Instructions: instructions}
+		compiledFn := &object.CompiledFunction{Instructions: instructions, NumLocals: numLocals}
 		c.emit(code.OpConstant, c.addConstant(compiledFn))
 	case *ast.ReturnStatement:
 		err := c.Compile(node.ReturnValue)
