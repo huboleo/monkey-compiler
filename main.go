@@ -5,11 +5,11 @@ import (
 	"os"
 	"os/user"
 
-	"github.com/huboleo/monkey-compiler/evaluator"
+	"github.com/huboleo/monkey-compiler/compiler"
 	"github.com/huboleo/monkey-compiler/lexer"
-	"github.com/huboleo/monkey-compiler/object"
 	"github.com/huboleo/monkey-compiler/parser"
 	"github.com/huboleo/monkey-compiler/repl"
+	"github.com/huboleo/monkey-compiler/vm"
 )
 
 func main() {
@@ -34,7 +34,8 @@ func startRepl() {
 	repl.Start(os.Stdin, os.Stdout)
 }
 
-// runFile evaluates a whole Monkey source file and returns the process exit code.
+// runFile compiles a whole Monkey source file to bytecode, runs it on the VM
+// and returns the process exit code.
 func runFile(path string) int {
 	src, err := os.ReadFile(path)
 	if err != nil {
@@ -51,9 +52,15 @@ func runFile(path string) int {
 		return 1
 	}
 
-	result := evaluator.Eval(program, object.NewEnvironment())
-	if errObj, ok := result.(*object.Error); ok {
-		fmt.Fprintf(os.Stderr, "%s: %s\n", path, errObj.Inspect())
+	comp := compiler.New()
+	if err := comp.Compile(program); err != nil {
+		fmt.Fprintf(os.Stderr, "%s: compiler error: %s\n", path, err)
+		return 1
+	}
+
+	machine := vm.New(comp.Bytecode())
+	if err := machine.Run(); err != nil {
+		fmt.Fprintf(os.Stderr, "%s: vm error: %s\n", path, err)
 		return 1
 	}
 

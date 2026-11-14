@@ -45,8 +45,8 @@ func Start(in io.Reader, out io.Writer) {
 		err := comp.Compile(program)
 
 		if err != nil {
-			continue
 			fmt.Fprintf(out, "Woops! Compilation failed:\n %s\n", err)
+			continue
 		}
 
 		code := comp.Bytecode()
@@ -56,8 +56,8 @@ func Start(in io.Reader, out io.Writer) {
 		err = machine.Run()
 
 		if err != nil {
-			continue
 			fmt.Fprintf(out, "Woops! Executing bytecode failed:\n %s\n", err)
+			continue
 		}
 
 		stackTop := machine.LastPoppedStackElem()
